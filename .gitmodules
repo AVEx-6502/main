@@ -1,0 +1,3 @@
+[submodule "qemu-6502"]
+	path = qemu-6502
+	url = git@github.com:AVEx-6502/qemu-6502.git
