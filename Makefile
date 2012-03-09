@@ -1,16 +1,36 @@
 
-
-cc	= libs/cc65-win/bin/cc65.exe
-ca	= libs/cc65-win/bin/ca65.exe
+target = 6502-softmmu
 
 qemusrcdir = $(CURDIR)/qemu-6502
+
+bindir = $(CURDIR)/bin
 builddir = $(CURDIR)/build
 
+qemu = $(builddir)/bin/qemu-system-6502
+
+all: configure install
+
 configure:
+ifeq ($(wildcard $(bindir)/config-host.mak),)
 	@echo "  Configuring Qemu"
-	@mkdir -p $(builddir); \
-	cd $(builddir); \
-	$(qemusrcdir)/configure --target-list=6502-softmmu
+	@mkdir -p $(bindir) $(builddir); \
+	cd $(bindir); \
+	$(qemusrcdir)/configure --target-list=$(target) --prefix=$(builddir)
+endif
+	
+install:
+	@echo "  Compiling Qemu"
+	cd $(bindir); \
+	make; \
+	make install;
 	
 clean:
-	@rm -fr $(builddir)
+	@rm -fr $(builddir) $(bindir)
+
+start:
+	$(qemu)
+	
+	
+	
+update:
+	git submodule update --init --recursive
