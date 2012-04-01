@@ -1,4 +1,6 @@
 
+NUM_JOBS:=$(shell expr `grep -c ^processor /proc/cpuinfo` + 1)
+
 target = 6502-softmmu
 
 qemusrcdir = $(CURDIR)/qemu-6502
@@ -15,13 +17,13 @@ ifeq ($(wildcard $(bindir)/config-host.mak),)
 	@echo "  Configuring Qemu"
 	@mkdir -p $(bindir) $(builddir); \
 	cd $(bindir); \
-	$(qemusrcdir)/configure --target-list=$(target) --prefix=$(builddir)
+	$(qemusrcdir)/configure --enable-debug --target-list=$(target) --prefix=$(builddir)
 endif
 	
 install:
 	@echo "  Compiling Qemu"
 	cd $(bindir); \
-	make; \
+	make -j $(NUM_JOBS); \
 	make install;
 	
 clean:
@@ -34,3 +36,5 @@ start:
 	
 update:
 	git submodule update --init --recursive
+	cd $(qemusrcdir) && git checkout master
+
