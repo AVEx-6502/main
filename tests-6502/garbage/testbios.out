@@ -1,0 +1,6 @@
+Final do mos6502_init.
+A gerar: A0
+A gerar: A2
+
+Nao implementado: addr=0x1003, insn=0xA2!
+Found unimplemented instruction. Shutting down . . .
