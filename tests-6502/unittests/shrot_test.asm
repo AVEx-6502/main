@@ -39,30 +39,32 @@ rest:
 start:
     ldy     #0          ;$1025
     lda     #1
+    pha
  @loop:
     ldx     #shiftby-$1000
-    jsr     printstring
-    tax                 ;$102E
+    jsr     printstring     ; "shifted by"...
     tya
-    printnum
+    printnum                ; amount of shifts
     iny
-    txa
     ldx     #rest-$1000
-    jsr     printstring
-    tax
+    jsr     printstring     ; ": "...
+    pla
+    printnum                ; resultant number
+    pha
     lda     #$0A
-    printchar
-    txa
+    printchar               ; newline for next shift
+    pla
     asl     A
+    pha                     ; NOTE: this instruction does not affect the flags...
     bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
 
-
+    pla
     jmp     exit
 
 
 ; X - low byte of string address...
 printstring:
-    tay;pha                 ;$1043
+    pha                 ;$1043
  @loop:
     lda     $1000,X
     beq     @ret
@@ -70,8 +72,7 @@ printstring:
     inx
     jmp     @loop
  @ret:
-    tya;pla
-    ;jmp $102E
+    pla
     rts
 
     
@@ -81,5 +82,7 @@ printchar
 tsx
 txa
 printnum
-hang:jmp hang
+lda   #$0A
+printchar
+brk
 
