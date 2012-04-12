@@ -37,6 +37,17 @@ rest:
 
 
 start:
+    jsr     test_acc
+    jsr     test_zpg
+    jsr     test_zpgX
+    jsr     test_abs
+    jsr     test_absX
+    jmp     exit
+
+
+
+
+test_acc:
     ldy     #0          ;$1025
     lda     #1
     pha
@@ -59,7 +70,98 @@ start:
     bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
 
     pla
-    jmp     exit
+    rts
+
+test_zpg:
+    ldy     #0          ;$1025
+    lda     #1
+    sta     $03
+ @loop:
+    ldx     #shiftby-$1000
+    jsr     printstring     ; "shifted by"...
+    tya
+    printnum                ; amount of shifts
+    iny
+    ldx     #rest-$1000
+    jsr     printstring     ; ": "...
+    lda     $03
+    printnum                ; resultant number
+    lda     #$0A
+    printchar               ; newline for next shift
+    asl     $03
+    bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
+
+    rts
+
+test_zpgX:
+    ldy     #0          ;$1025
+    lda     #1
+    sta     $03
+ @loop:
+    ldx     #shiftby-$1000
+    jsr     printstring     ; "shifted by"...
+    tya
+    printnum                ; amount of shifts
+    iny
+    ldx     #rest-$1000
+    jsr     printstring     ; ": "...
+    lda     $03
+    printnum                ; resultant number
+    lda     #$0A
+    printchar               ; newline for next shift
+    ldx     #-6
+    asl     $03+6,X
+    bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
+
+    rts
+
+
+test_abs:
+    ldy     #0          ;$1025
+    lda     #1
+    sta     $0203
+ @loop:
+    ldx     #shiftby-$1000
+    jsr     printstring     ; "shifted by"...
+    tya
+    printnum                ; amount of shifts
+    iny
+    ldx     #rest-$1000
+    jsr     printstring     ; ": "...
+    lda     $0203
+    printnum                ; resultant number
+    lda     #$0A
+    printchar               ; newline for next shift
+    asl     $0203
+    bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
+
+    rts
+
+test_absX:
+    ldy     #0          ;$1025
+    lda     #1
+    sta     $0204
+ @loop:
+    ldx     #shiftby-$1000
+    jsr     printstring     ; "shifted by"...
+    tya
+    printnum                ; amount of shifts
+    iny
+    ldx     #rest-$1000
+    jsr     printstring     ; ": "...
+    lda     $0204
+    printnum                ; resultant number
+    lda     #$0A
+    printchar               ; newline for next shift
+    ldx     #-6
+    asl     $0204+6,X
+    bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
+
+    rts
+
+
+
+
 
 
 ; X - low byte of string address...
