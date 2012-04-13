@@ -63,13 +63,16 @@ start:
     printflags
     lda		$2040
     printnum
-    rol     $2040
+    ldx     #6
+    rol     $2040-6,X
     printflags
     lda		$2040
     printnum
-    rol     $2040
+    sta     $40
+    ldx     #1
+    rol     $3F,X
     printflags
-    lda		$2040
+    lda		$40
     printnum
 
 
