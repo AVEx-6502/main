@@ -30,25 +30,34 @@ getchar                 ;$1000
     printchar           ;$100F
     lda     #$0A        ;$1010
     printchar           ;$1012
-    jmp   start         ;$1013
-
-; Data area...
-
-
-start:
-	; Accumulator test
+    jmp   start         ;$1013	; Accumulator test
     lda     #43
+    printnum
     printflags
-    printnum
     rol     A
+    printnum
     printflags
-    printnum
     rol     A
-    printflags    
     printnum
-    rol     A
     printflags
+    rol     A
     printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
     
     clc
     lda     #$0A        
@@ -56,60 +65,197 @@ start:
           
     ; Memory test   
     lda     #43
-    printflags
     sta		$2040
     printnum
-    rol     $2040
     printflags
+    rol     $2040
     lda		$2040
     printnum
-    rol     $2040
     printflags
+    rol     $2040
     lda		$2040
     printnum
-    rol     $2040
     printflags
+    rol     $2040
     lda		$2040
     printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
 
 
+; Data area...
+
+
+start:
+	; Accumulator test
+    lda     #43
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    rol     A
+    printnum
+    printflags
+    
+    clc
+    lda     #$0A        
+    printchar  
+          
+    ; Memory test   
+    lda     #43
+    sta		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+    rol     $2040
+    lda		$2040
+    printnum
+    printflags
+
+    clc
+    lda     #$0A        
+    printchar 
     
     
  jmp right
  right:
+ 
+ 	; Accumulator test
     lda     #43
     printnum
+    printflags
     ror     A
     printnum
+    printflags
     ror     A
     printnum
+    printflags
     ror     A
     printnum
+    printflags
+    ror     A
+    printnum
+    printflags
+    ror     A
+    printnum
+    printflags
+    ror     A
+    printnum
+    printflags
+    ror     A
+    printnum
+    printflags
+    ror     A
+    printnum
+    printflags
+    
+    clc
+    lda     #$0A        
+    printchar     
     
     
-    
-    
-    
+    ; Memory test   
     lda     #43
-    sta     42
+    sta		$2040
     printnum
-    rol     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    rol     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    rol     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    
-    lda     #43
-    sta     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    ror     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    ror     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    ror     42
+    printflags
+    ror     $2040
+    lda		$2040
     printnum
-    
+    printflags
+    ror     $2040
+    lda		$2040
+    printnum
+    printflags
     
     
     jmp     exit
