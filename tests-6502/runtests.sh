@@ -1,10 +1,13 @@
 #!/bin/sh
 
+export executavel=$1
+
+
 asm_test()
 {
   echo "======> A testar agora: " `ls $1.asm`
   cl65 -t none $1.asm -o $1
-  ../../../install/bin/qemu-system-6502 -bios $1 2>/dev/null | diff - $1.out
+  $executavel -bios $1 2>/dev/null | diff - $1.out
 }
 
 asm_test unittests/bcs_test
@@ -36,13 +39,13 @@ asm_seeres()
 {
   echo "======> A testar agora: " `ls $1.asm`
   cl65 -t none $1.asm -o $1
-  ../../../install/bin/qemu-system-6502 -bios $1 2>/dev/null
+  $executavel -bios $1 2>/dev/null
 }
 
 asm_genout()
 {
   echo "======> A testar agora: " `ls $1.asm`
   cl65 -t none $1.asm -o $1
-  ../../../install/bin/qemu-system-6502 -bios $1 2>/dev/null > $1.out
+  $executavel -bios $1 2>/dev/null > $1.out
 }
 
