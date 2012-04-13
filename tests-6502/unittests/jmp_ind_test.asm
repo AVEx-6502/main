@@ -30,23 +30,21 @@ getchar
 	lda		#$FF		; printchar
 	sta		$1236
 	
-	lda		#$A9		; lda #'O'
+	lda		#$A9		; lda #'l'
 	sta		$1237
 	lda		#'l'
 	sta		$1238	
 	lda		#$FF		; printchar
 	sta		$1239
 
-	lda		#$A9		; lda #'O'
+	lda		#$A9		; lda #'a'
 	sta		$123A
 	lda		#'a'
 	sta		$123B	
 	lda		#$FF		; printchar
 	sta		$123C
 
-	lda		#$D0		; bne #FE
+	lda		#$00		; brk
 	sta		$123D
-	lda		#$FE
-	sta		$123E
 	
 	jmp		($2010)

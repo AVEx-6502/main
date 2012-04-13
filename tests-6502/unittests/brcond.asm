@@ -57,8 +57,8 @@ start:
     
     lda   #124
     cmp   #124
-    beq   erro  ; If equal
-    lda   #'C'
+    bne   erro  ; If not equal
+    lda   #'D'
     printchar
 
     jmp   (exit_addr)

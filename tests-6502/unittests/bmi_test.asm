@@ -25,7 +25,8 @@ loop:	printnum
 		txa
 		sec
 		adc		#1
-out:	bmi		out
+out:	bmi		end
 		jmp		loop
 
 
+end:brk

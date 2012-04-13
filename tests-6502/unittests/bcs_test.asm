@@ -25,7 +25,8 @@ loop:	printnum
 		txa
 		sec
 		adc		#1
-out:	bcs		out
+out:	bcs		end
 		jmp		loop
 
 
+end:brk

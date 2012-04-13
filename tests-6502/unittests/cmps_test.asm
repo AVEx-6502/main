@@ -158,7 +158,7 @@ l19:	lda		#43
 
 l20:	lda		0
 		printnum		; 20
-end:	jmp		end
+end:	brk
 
 
 

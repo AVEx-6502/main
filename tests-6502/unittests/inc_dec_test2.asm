@@ -47,4 +47,4 @@ getchar
 		lda		#$0A
 		printchar
 		
-end:	jmp end			
+end:	brk

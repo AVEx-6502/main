@@ -105,7 +105,6 @@ start:
   printchar
   lda     #'Z'
 
-forever:jmp forever
 
 brk
 
