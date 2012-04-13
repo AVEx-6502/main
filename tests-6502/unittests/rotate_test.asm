@@ -1,3 +1,6 @@
+.macro printflags character
+  .byte $BF
+.endmacro
 .macro getnum character
   .byte $CF
 .endmacro
@@ -33,14 +36,45 @@ getchar                 ;$1000
 
 
 start:
+	; Accumulator test
     lda     #43
+    printflags
     printnum
     rol     A
+    printflags
     printnum
     rol     A
+    printflags    
     printnum
     rol     A
+    printflags
     printnum
+    
+    clc
+    lda     #$0A        
+    printchar  
+          
+    ; Memory test   
+    lda     #43
+    printflags
+    sta		$2040
+    printnum
+    rol     $2040
+    printflags
+    lda		$2040
+    printnum
+    rol     $2040
+    printflags
+    lda		$2040
+    printnum
+    rol     $2040
+    printflags
+    lda		$2040
+    printnum
+
+
+    
+    
  jmp right
  right:
     lda     #43
