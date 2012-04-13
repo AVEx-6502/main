@@ -45,7 +45,9 @@ start:
     jmp     exit
 
 
-
+    
+    
+    
 
 test_acc:
     ldy     #0          ;$1025
@@ -156,7 +158,6 @@ test_absX:
     ldx     #-6
     asl     $0204+6,X
     bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
-
     rts
 
 
