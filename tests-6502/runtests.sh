@@ -10,6 +10,23 @@ asm_test()
   $executavel -bios $1 2>/dev/null | diff - $1.out
 }
 
+asm_seeres()
+{
+  echo "======> A testar agora: " `ls $1.asm`
+  cl65 -t none $1.asm -o $1
+  $executavel -bios $1 2>/dev/null
+}
+
+asm_genout()
+{
+  echo "======> A testar agora: " `ls $1.asm`
+  cl65 -t none $1.asm -o $1
+  $executavel -bios $1 2>/dev/null > $1.out
+}
+
+
+
+asm_test unittests/stack
 asm_test unittests/bcs_test
 asm_test unittests/brcond
 asm_test unittests/inc_dec_test
@@ -29,23 +46,10 @@ asm_test unittests/jmptest
 asm_test unittests/shrot_test 
 asm_test unittests/txldsttest
 asm_test unittests/jmp_ind_test
-#asm_test unittests/stack
 
 
 
 
 
-asm_seeres()
-{
-  echo "======> A testar agora: " `ls $1.asm`
-  cl65 -t none $1.asm -o $1
-  $executavel -bios $1 2>/dev/null
-}
 
-asm_genout()
-{
-  echo "======> A testar agora: " `ls $1.asm`
-  cl65 -t none $1.asm -o $1
-  $executavel -bios $1 2>/dev/null > $1.out
-}
 
