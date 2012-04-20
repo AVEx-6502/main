@@ -64,4 +64,4 @@ getchar
 
 
 
-end:	jmp end			
+end:	brk

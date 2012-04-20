@@ -52,5 +52,6 @@ not_c2:	lda		#$0A
 		printchar
 		txa				; Restore AC
 		bne		loop2	; loop until AC is 0
-end:	jmp 	end		
+
+end:	brk
 

@@ -68,4 +68,4 @@ getchar
 		printnum
 		lda		#$0A
 		printchar	
-end:	jmp end			
+end:	brk

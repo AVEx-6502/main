@@ -53,5 +53,5 @@ getchar
 
 	; Resultado esperado: 42 43 44 45
 
-end:	jmp end
+end:	brk
 

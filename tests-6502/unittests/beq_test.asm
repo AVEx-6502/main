@@ -25,7 +25,8 @@ loop:	printnum
 		txa
 		sec
 		sbc		#1
-out:	beq		out
+out:	beq		end
 		jmp		loop
 
 
+end:brk
