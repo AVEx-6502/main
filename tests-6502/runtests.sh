@@ -7,6 +7,7 @@ asm_test()
 {
   echo "======> A testar agora: " `ls $1.asm`
   cl65 -t none $1.asm -o $1
+  rm $1.o
   $executavel -bios $1 2>/dev/null | diff - $1.out
 }
 
@@ -25,7 +26,8 @@ asm_genout()
 }
 
 
-
+asm_test unittests/bit_test
+asm_test unittests/6502_lib
 asm_test unittests/stack
 asm_test unittests/bcs_test
 asm_test unittests/brcond

@@ -37,11 +37,13 @@ start:	lda		#text-$1000
 		lda		#$0A
 		printchar
 		
-		lda		#5
+		lda		#12
 		jsr		fib
 		printnum
+		lda		#$0A
+		printchar
 
-end:	jmp end
+end:	brk
 
 
 
@@ -71,10 +73,8 @@ mult:
 			pha				; Save AC and X
 			txa
 			pha			
-
 			tsx				; X - SP
-			lda		#0		; AC - result
-		
+			lda		#0		; AC - result		
 mu_loop:	dec		$105,x	; num2--
 			bmi		mu_end	; br.n
 			clc
