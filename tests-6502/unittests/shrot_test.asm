@@ -111,8 +111,13 @@ test_zpgX:
     printnum                ; resultant number
     lda     #$0A
     printchar               ; newline for next shift
-    ldx     #-6
-    asl     $03+6,X
+    ; this will actually work by luck, but X (and Y too) is suposed to be unsigned when used in addressing modes
+;    ldx     #-6
+;    asl     $03+6,X
+    ldx     #0
+    asl     $03,X
+
+
     bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
 
     rts
@@ -155,8 +160,8 @@ test_absX:
     printnum                ; resultant number
     lda     #$0A
     printchar               ; newline for next shift
-    ldx     #-6
-    asl     $0204+6,X
+    ldx     #0
+    asl     $0204,X
     bne     @loop       ; We are goint to shift and print until the result of the shift is 0...
     rts
 
