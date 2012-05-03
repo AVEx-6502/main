@@ -36,7 +36,7 @@ lda     #' '
 printchar
 printchar
 
-getnum
+;getnum
 adc   #50
 printnum
 

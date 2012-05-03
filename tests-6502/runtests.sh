@@ -50,7 +50,7 @@ asm_test unittests/jmptest
 asm_test unittests/shrot_test 
 asm_test unittests/txldsttest
 asm_test unittests/jmp_ind_test
-
+asm_test garbage/print_test
 
 
 
