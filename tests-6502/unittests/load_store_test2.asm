@@ -80,8 +80,8 @@ getchar
 	;	Indireect Y test
 	;
 
-	; Load data address 0xFFFE in page 0 at 20
-	lda 	#$FE
+	; Load data address 0xFFEC in page 0 at 20
+	lda 	#$EC
 	sta		20	
 	lda		#$FF
 	sta		21	
