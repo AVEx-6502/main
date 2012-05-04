@@ -37,7 +37,7 @@ printchar
 printchar
 
 ;getnum
-adc   #50
+lda   #50
 printnum
 sta $01
 
