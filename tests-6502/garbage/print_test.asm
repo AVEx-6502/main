@@ -39,6 +39,7 @@ printchar
 ;getnum
 adc   #50
 printnum
+sta $01
 
 lda     #$0A
 printchar
