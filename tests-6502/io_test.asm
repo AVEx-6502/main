@@ -1,12 +1,19 @@
 .org	$1000
 jmp start
 
+str0:		"Write a string: "
 str_hello:	.byte	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0; 
 
 
-start:	lda		#str_hello-$1000
+start:	lda		#str0-$1000
+		jsr		print_string
+		lda		#1
+		sta		$FE01				; Enable echo
+		lda		#str_hello-$1000
 		jsr		read_string
 		jsr		print_string
+		lda		#0
+		sta		$FE01				; Disable echo		
 end:	jmp 	end
 
 
