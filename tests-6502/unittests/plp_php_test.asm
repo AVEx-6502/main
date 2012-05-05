@@ -27,9 +27,8 @@ loop:	pha
 		php
 		jsr		update_flag_counts
 		; Compare the value saved by PHP with the value in AC
-		pha				
+		pha
 		ora		#$30		; Some bits are always 1 or always 0 (Change this test when the remaining flags are implemented)
-		and		#$F3
 		cmp		$100,X
 		bne		end
 		pla					; Remove junk from stack, increment AC and loop again
@@ -78,13 +77,13 @@ ufc_z1:				bpl		ufc_z1n0
 					bmi		ufc_z1n1
 ufc_z0n0:			inc		1
 					inc		3
-					jmp		ufc_check_c					
+					jmp		ufc_check_c
 ufc_z0n1:			inc		1
 					inc		2
-					jmp		ufc_check_c									
+					jmp		ufc_check_c
 ufc_z1n0:			inc		0
 					inc		3
-					jmp		ufc_check_c					
+					jmp		ufc_check_c
 ufc_z1n1:			inc		0
 					inc		2
 ufc_check_c:		bcs		ufc_c1
