@@ -32,17 +32,19 @@ getchar                 ;$1000
 
 
 start:
-    jsr     test_bcd
+    jsr     test_add
+    jsr     test_sub
     jmp exit
 
 
 
-test_bcd:
+test_add:
     sed
     ;Immediate add
     lda #$58
+    sec
     adc #$34
-    jsr     printhex    ; 92 (carry no)
+    jsr     printhex    ; 93 (carry no)
     bcs     erro
     newline
     
@@ -51,6 +53,7 @@ test_bcd:
     lda #$74
     sta $07
     lda #$58
+    clc
     adc $07
     php
     jsr     printhex    ; 32 (carry yes)
@@ -60,6 +63,31 @@ test_bcd:
 
     rts
 
+
+test_sub:
+    sed
+    ;Immediate add
+    lda #$58
+    sec
+    sbc #$39
+    jsr     printhex    ; 19 (carry no)
+    bcc     erro
+    newline
+    
+    ;Memory add
+    sed
+    lda #$74
+    sta $07
+    lda #$58
+    clc
+    sbc $07
+    php
+    jsr     printhex    ; 83 (carry yes)
+    plp
+    bcs     erro
+    newline
+
+    rts
 
 
 
