@@ -1,10 +1,4 @@
-.macro printnum character
-  .byte $DF
-.endmacro
-
-.macro printchar character
-  .byte $FF
-.endmacro
+.include "unittests/macros.inc"
 
 
 
@@ -43,7 +37,7 @@ start:	lda		#text-$1000
 		lda		#$0A
 		printchar
 
-end:	brk
+end:	endprog
 
 
 

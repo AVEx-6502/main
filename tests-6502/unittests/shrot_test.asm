@@ -1,15 +1,5 @@
-.macro getnum character
-  .byte $CF
-.endmacro
-.macro printnum character
-  .byte $DF
-.endmacro
-.macro getchar character
-  .byte $EF
-.endmacro
-.macro printchar character
-  .byte $FF
-.endmacro
+.include "unittests/macros.inc"
+
 .org $1000
 
 ; Isto serve para gastar um caracter, porque por
@@ -192,5 +182,5 @@ txa
 printnum
 lda   #$0A
 printchar
-brk
+endprog
 

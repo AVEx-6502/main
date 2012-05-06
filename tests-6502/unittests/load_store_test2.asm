@@ -1,15 +1,5 @@
-.macro getnum character
-  .byte $CF
-.endmacro
-.macro printnum character
-  .byte $DF
-.endmacro
-.macro getchar character
-  .byte $EF
-.endmacro
-.macro printchar character
-  .byte $FF
-.endmacro
+.include "unittests/macros.inc"
+
 
 .org $1000
 
@@ -136,7 +126,7 @@ getchar
 
     ; Output esperado: 42 43 44 45 46 47 48
     
-end:brk
+end:endprog
 
 
 	

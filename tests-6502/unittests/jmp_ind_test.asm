@@ -1,15 +1,4 @@
-.macro getnum character
-  .byte $CF
-.endmacro
-.macro printnum character
-  .byte $DF
-.endmacro
-.macro getchar character
-  .byte $EF
-.endmacro
-.macro printchar character
-  .byte $FF
-.endmacro
+.include "unittests/macros.inc"
 
 
 .org $1000
@@ -44,7 +33,15 @@ getchar
 	lda		#$FF		; printchar
 	sta		$123C
 
-	lda		#$00		; brk
+	lda		#$00		; endprog
 	sta		$123D
 	
+	lda     #end&$FF
+	sta     $2010
+	lda     #(end>>8)&$FF
+    sta     $2011
 	jmp		($2010)
+
+
+
+end:endprog
