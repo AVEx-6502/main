@@ -7,6 +7,7 @@
 ; algum motivo ele esta la apos o arranque do Qemu...
 getchar
 
+; Write an address to $2010 and then put some code at that address
 	lda		#$34
 	sta		$2010
 	lda		#$12
@@ -33,15 +34,10 @@ getchar
 	lda		#$FF		; printchar
 	sta		$123C
 
-	lda		#$00		; endprog
+	lda		#endprog_opcode		; endprog
 	sta		$123D
-	
-	lda     #end&$FF
-	sta     $2010
-	lda     #(end>>8)&$FF
-    sta     $2011
+
 	jmp		($2010)
 
 
 
-end:endprog

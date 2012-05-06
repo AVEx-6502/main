@@ -14,6 +14,7 @@
   .byte $FF
 .endmacro
 
+endprog_opcode = $0F
 .macro endprog
-  .byte $0F
+  .byte endprog_opcode
 .endmacro
