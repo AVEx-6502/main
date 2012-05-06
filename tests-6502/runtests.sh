@@ -25,6 +25,8 @@ asm_genout()
   $executavel -bios $1 2>/dev/null > $1.out
 }
 
+asm_test unittests/smc_test
+asm_test unittests/brk_test
 asm_test unittests/bcd_test
 asm_test unittests/di_test
 asm_test unittests/plp_php_test
