@@ -27,6 +27,7 @@ NF:     .byte 0
 VF:     .byte 0
 ZF:     .byte 0
 N2H:    .byte 0, 0
+OPER:   .byte '-'
 
 
 
@@ -35,10 +36,99 @@ start:
     
     lda ERROR
     printnum
+    lda #$0A
+    printchar
+    
+    ; Conta
+    lda N1
+    jsr printhex
+    lda #' '
+    printchar
+    lda OPER
+    printchar
+    lda #' '
+    printchar
+    lda N2
+    jsr printhex
+    lda #' '
+    printchar
+    lda #'='
+    printchar
+    lda #' '
+    printchar
+    lda AR
+    jsr printhex
+    lda #$0A
+    printchar
+    
+    ; Resultados dados
+    lda DA
+    jsr printhex
+    lda #' '
+    printchar
+    lda HA
+    jsr printhex
+    
+    lda #$0A
+    printchar
+    
+    ; Flags supostas e dadas
+    jsr printpredictedflags
+    lda #$0A
+    printchar
+    jsr printactualflags
+    
+    lda #$0A
+    printchar
     
     endprog
 
+printpredictedflags:
+    printbitn  NF, 7
+    printbitn  VF, 6
+    printbitn $FF, 5
+    printbitn $FF, 4
+    printbitn $FF, 3
+    printbitn $FF, 2
+    printbitn  ZF, 1
+    printbitn  CF, 0
+    rts
 
+printactualflags:
+    printbitn  DNVZC, 7
+    printbitn  DNVZC, 6
+    printbitn    $FF, 5
+    printbitn    $FF, 4
+    printbitn    $FF, 3
+    printbitn    $FF, 2
+    printbitn  DNVZC, 1
+    printbitn  DNVZC, 0
+    rts
+
+printhex:
+    tax
+    
+    lsr     A
+    lsr     A
+    lsr     A
+    lsr     A
+    and     #$0F
+    tay
+    lda     @hexchars,y
+    printchar
+    
+    txa
+    and     #$0F
+    tay
+    lda     @hexchars,y
+    printchar
+    
+    txa
+    rts
+    
+ @hexchars: .byte "0123456789ABCDEF"    
+    
+    
 
 ;Verify decimal mode behavior
 ;
@@ -81,10 +171,14 @@ LOOP2:  LDA N1    ; N1L = N1 & $0F
         LDA N1    ; N1H = N1 & $F0
         AND #$F0  ; [4] see text
         STA N1H
+                    DEC OPER
+                    DEC OPER
         JSR ADD
         JSR A6502
         JSR COMPARE
         BNE DONE
+                    INC OPER
+                    INC OPER
         JSR SUB
         JSR S6502
         JSR COMPARE
@@ -103,7 +197,6 @@ DONE:   RTS
 ; and flag results when N1 is added to N2 using binary arithmetic, the
 ; predicted accumulator result, the predicted carry flag, and the predicted
 ; V flag
-;
 ADD:    SED       ; decimal mode
         CPY #1    ; set carry if Y = 1, clear carry if Y = 0
         LDA N1
@@ -148,16 +241,13 @@ A3:     STA AR    ; predicted accumulator result
         PLA
         STA CF    ; predicted carry result
         PLA
-;
 ; note that all 8 bits of the P register are stored in VF
-;
         STA VF    ; predicted V flags
         RTS
 
 ; Calculate the actual decimal mode accumulator and flags, and the
 ; accumulator and flag results when N2 is subtracted from N1 using binary
 ; arithmetic
-;
 SUB:    SED       ; decimal mode
         CPY #1    ; set carry if Y = 1, clear carry if Y = 0
         LDA N1
@@ -178,8 +268,6 @@ SUB:    SED       ; decimal mode
         RTS
 
 ; Calculate the predicted SBC accumulator result for the 6502 and 65816
-
-;
 SUB1:   CPY #1    ; set carry if Y = 1, clear carry if Y = 0
         LDA N1L
         SBC N2L
@@ -200,30 +288,6 @@ S11:    ORA N1H
 S12:    STA AR
         RTS
 
-; Calculate the predicted SBC accumulator result for the 6502 and 65C02
-
-;
-SUB2:   CPY #1    ; set carry if Y = 1, clear carry if Y = 0
-        LDA N1L
-        SBC N2L
-        LDX #0
-        BCS S21
-        INX
-        AND #$0F
-        CLC
-S21:    ORA N1H
-;
-; if N1L - N2L >= 0, then subtract N2 & $F0
-; if N1L - N2L <  0, then subtract (N2 & $F0) + $0F + 1 (carry is clear)
-;
-        SBC N2H,X
-        BCS S22
-        SBC #$5F   ; subtract $60 (carry is clear)
-S22:    CPX #0
-        BEQ S23
-        SBC #6
-S23:    STA AR     ; predicted accumulator result
-        RTS
 
 ; Compare accumulator actual results to predicted results
 ;
@@ -251,14 +315,15 @@ COMPARE:LDA DA
         AND #1    ; mask off C flag
 C1:     RTS
 
+
+
+
+
 ; These routines store the predicted values for ADC and SBC for the 6502,
 ; 65C02, and 65816 in AR, CF, NF, VF, and ZF
-
 A6502:  LDA VF
-;
 ; since all 8 bits of the P register were stored in VF, bit 7 of VF contains
 ; the N flag for NF
-;
         STA NF
         LDA HNVZC
         STA ZF
@@ -272,38 +337,3 @@ S6502:  JSR SUB1
         STA CF
         RTS
 
-A65C02: LDA AR
-        PHP
-        PLA
-        STA NF
-        STA ZF
-        RTS
-
-S65C02: JSR SUB2
-        LDA AR
-        PHP
-        PLA
-        STA NF
-        STA ZF
-        LDA HNVZC
-        STA VF
-        STA CF
-        RTS
-
-A65816: LDA AR
-        PHP
-        PLA
-        STA NF
-        STA ZF
-        RTS
-
-S65816: JSR SUB1
-        LDA AR
-        PHP
-        PLA
-        STA NF
-        STA ZF
-        LDA HNVZC
-        STA VF
-        STA CF
-        RTS

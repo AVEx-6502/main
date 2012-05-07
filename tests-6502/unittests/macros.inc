@@ -1,3 +1,19 @@
+.macro lsrn    Oper, Count
+    .repeat Count
+        lsr Oper
+    .endrepeat
+.endmacro
+
+.macro printbitn   Val, N
+    lda Val
+    lsrn A, N
+    and #1
+    clc
+    adc #'0'
+    printchar
+.endmacro
+
+
 .macro printflags character
   .byte $BF
 .endmacro
