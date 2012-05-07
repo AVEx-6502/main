@@ -13,8 +13,20 @@ getchar                 ;$1000
 ourstring: .byte "String printed from the main program!", $0A, 0
 
 start:
+    ; Copy code to modifiable address
+    ldx     #start&$FF
+ @cplp:
+    cpx     #startend&$FF
+    beq     @cpd
+    lda     $1000,X
+    sta     $2000,X
+    inx
+    jmp     @cplp
+    
+ @cpd: jmp     @cont+$1000
+ @cont:
     lda     #$DF    ; printnum
-    sta     invi
+    sta     invi+$1000
     
     lda     #74
  invi:   .byte $02   ; Invalid instruction
@@ -23,6 +35,7 @@ start:
     jsr     printstring
 
     jmp exit
+startend:
 
 ; X - low byte of string address...
 printstring:

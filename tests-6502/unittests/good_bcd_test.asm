@@ -11,27 +11,31 @@
 getchar
 jmp start
 
-AR:     .byte 0
-CF:     .byte 0
-DA:     .byte 0
-DNVZC:  .byte 0
-ERROR:  .byte 0
-HA:     .byte 0
-HNVZC:  .byte 0
-N1:     .byte 0
-N1H:    .byte 0
-N1L:    .byte 0
-N2:     .byte 0
-N2L:    .byte 0
-NF:     .byte 0
-VF:     .byte 0
-ZF:     .byte 0
-N2H:    .byte 0, 0
-OPER:   .byte '-'
+AR      = 0
+CF      = 1
+DA      = 2
+DNVZC   = 3
+ERROR   = 4
+HA      = 5
+HNVZC   = 6
+N1      = 7
+N1H     = 8
+N1L     = 9
+N2      = 10
+N2L     = 11
+NF      = 12
+VF      = 13
+ZF      = 14
+OPER    = 15
+N2H     = 16      ; Warning! This one needs 2 bytes.
+
+
 
 
 
 start:
+    lda #'-'
+    sta OPER
     jsr TEST
     
     lda ERROR

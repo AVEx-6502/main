@@ -22,11 +22,16 @@ getchar
 
 
 ; Data area...
-myarray:
-.byte "QQQQQ"
-
+myarray = 0
 
 start:
+  lda #'Q'
+  sta 0
+  sta 1
+  sta 2
+  sta 3
+  sta 4
+
   ; Print the whole array
   ldx     #0
   lda     myarray,X

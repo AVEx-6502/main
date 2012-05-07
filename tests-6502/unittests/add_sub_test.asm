@@ -7,11 +7,11 @@
 getchar
 jmp		start
 
-ERROR:		.byte	42
-S1:			.byte	0
-S2:			.byte	0
-U1:			.byte	0
-U2:			.byte	0
+ERROR = 0;:		.byte	42
+S1    = 1;:			.byte	0
+S2    = 2;:			.byte	0
+U1    = 3;:			.byte	0
+U2    = 4;:			.byte	0
 
 
 
@@ -20,7 +20,9 @@ U2:			.byte	0
 
 
 
-start:	jsr		TEST
+start:	lda #42
+        sta ERROR
+        jsr		TEST
 		lda		ERROR
 		printnum
 end:	endprog
