@@ -1,8 +1,8 @@
 .org $1000
 
-ldx #$FF    ; Load stack pointer
+ldx 	#$FF    ; Load stack pointer
 txs
-jmp start
+jmp 	start
 
 ; RO Data area
 ;-------------
@@ -12,8 +12,7 @@ menu_text:  .byte "Choose an option:", $0A
             .byte " 1 - Multiplication", $0A
             .byte " 2 - Factorial", $0A
             .byte " 3 - Fibonacci", $0A
-            .byte " 4 - String info", $0A
-            .byte " 5 - Exit", $0A, $0A, 0
+            .byte " 4 - Exit", $0A, $0A, 0
 invalid_text: .byte "Invalid option.", $0A, $0A, 0
 goodbye_text: .byte "Goodbye!", 0
 ask_number_text: .byte "Insert a number: ", 0
@@ -24,18 +23,19 @@ mult_text: .byte "Multiplication", $0A, $0A, 0
 fact_text: .byte "Factorial", $0A, $0A, 0
 fib_text: .byte "Fibonacci", $0A, $0A, 0
 
-opt_jmp_table: .word opt_mult, opt_fact, opt_fib, opt_string, opt_exit
+opt_jmp_table: .word opt_mult, opt_fact, opt_fib, opt_exit
 
 ; Code area
 ;----------
 ;
+
 opt_inv:    lda     #invalid_text-$1000
             jsr     print_string
 start:      lda     #menu_text-$1000        ; Display menu
             jsr     print_string
 read_opt:   lda     $FE00
             beq     read_opt
-            cmp     #'6'                    ; Check for invalid keys
+            cmp     #'5'                    ; Check for invalid keys
             bcs     opt_inv
             cmp     #'1'
             bcc     opt_inv
@@ -118,9 +118,6 @@ opt_fib:    lda     #fib_text-$1000
             lda     #0
             sta     $FE01           ; Disable echo
             jmp     start
-
-
-opt_string: jmp     start
 
 opt_exit:   lda     #goodbye_text-$1000
             jsr     print_string

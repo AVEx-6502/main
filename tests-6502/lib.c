@@ -2,7 +2,7 @@
 #include "lib.h"
 
 
-#define SCREEN_WRITE    ((char*)0x002C)
+#define SCREEN_WRITE    ((char*)0xFE00)
 
 
 void write_char(char c)
