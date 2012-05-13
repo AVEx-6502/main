@@ -152,17 +152,18 @@ pn_end:         pla
                 rts
 ; This function will print part of AC: hundreds, tens or units
 ; The part printed must be the largest part the number has
-pn_part:        sta     $FE,X
+pn_part:        pha
                 tya
                 ldy     #'0'
-pn_part_loop:   cmp     $FE,X
+pn_part_loop:   cmp     a:$FE,X
                 bcc     pn_part_print
                 sec
-                sbc     $FE,X
+                sbc     a:$FE,X
                 iny
                 jmp     pn_part_loop
 pn_part_print:  sty     $FE00
                 tay
+                pla
                 rts
 
 

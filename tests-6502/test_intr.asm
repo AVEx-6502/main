@@ -30,7 +30,7 @@ out:	lda		#text2-$1000
         jsr     print_string
         lda     #0
         sta     0
-        lda     #10     ; 5 seconds
+        lda     #10     ; 1 second
         sta     $FE02
         jmp     loop
         

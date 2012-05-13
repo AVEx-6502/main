@@ -1,5 +1,11 @@
+UNAME := $(shell uname)
 
-NUM_JOBS:=$(shell expr `grep -c ^processor /proc/cpuinfo` + 1)
+ifeq ($(UNAME), Linux)
+	NUM_JOBS:=$(shell expr `grep -c ^processor /proc/cpuinfo` + 1)
+else
+	NUM_JOBS:=1
+endif
+
 
 target = 6502-softmmu
 
@@ -32,7 +38,12 @@ clean:
 start:
 	$(qemu)
 	
-	
+test:
+	cd ./tests-6502/; \
+	./runtests.sh $(qemu);
+
+demo:
+	$(qemu) -bios ./tests-6502/demo1
 	
 update:
 	git submodule update --init --recursive
