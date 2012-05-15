@@ -11,9 +11,9 @@ moreints:   .byte   "More interrupts each second...", $0A, 0
 
 
 start:	lda		#(intr_handler & $FF)
-		sta		$FF00
+		sta		$FFFE
 		lda		#((intr_handler >> 8) & $FF)
-		sta		$FF01
+		sta		$FFFF
 		lda		#50		; 5 seconds
 		sta		$FE02
         lda     #text-$1000

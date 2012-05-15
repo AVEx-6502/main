@@ -6,9 +6,9 @@
 
 
 start:		lda		#(intr_handler & $FF)
-			sta		$FF00
+			sta		$FFFE
 			lda		#((intr_handler >> 8) & $FF)
-			sta		$FF01
+			sta		$FFFF
 			lda		#10		; 1 second
 			sta		$FE02
 print_time:
