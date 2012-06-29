@@ -55,11 +55,6 @@ asm_test unittests/shrot_test
 asm_test unittests/txldsttest
 asm_test unittests/jmp_ind_test
 asm_test garbage/print_test
-
 asm_test unittests/good_bcd_test
-
-
-
-
-
+asm_test unittests/addr_quirks
 

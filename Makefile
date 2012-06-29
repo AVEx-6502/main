@@ -44,7 +44,10 @@ test:
 
 demo:
 	$(qemu) -bios ./tests-6502/demo1
-	
+
+clock:
+	$(qemu) -bios ./tests-6502/test_clock
+
 update:
 	git submodule update --init --recursive
 	cd $(qemusrcdir) && git checkout master
