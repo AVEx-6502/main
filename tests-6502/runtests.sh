@@ -58,3 +58,6 @@ asm_test garbage/print_test
 asm_test unittests/good_bcd_test
 asm_test unittests/addr_quirks
 
+# Undocumented instructions tests
+asm_test unittests/undocumented/nop_test
+asm_test unittests/undocumented/lax_sax_test
