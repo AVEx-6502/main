@@ -17,21 +17,21 @@ getchar
 	sta		$2234
 	lda		#'O'
 	sta		$2235	
-	lda		#$FF		; printchar
+	lda		#printchar_opcode		; printchar
 	sta		$2236
 	
 	lda		#$A9		; lda #'l'
 	sta		$2237
 	lda		#'l'
 	sta		$2238	
-	lda		#$FF		; printchar
+	lda		#printchar_opcode		; printchar
 	sta		$2239
 
 	lda		#$A9		; lda #'a'
 	sta		$223A
 	lda		#'a'
 	sta		$223B	
-	lda		#$FF		; printchar
+	lda		#printchar_opcode		; printchar
 	sta		$223C
 
 	lda		#endprog_opcode		; endprog

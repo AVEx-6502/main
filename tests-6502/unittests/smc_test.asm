@@ -25,7 +25,7 @@ start:
     
  @cpd: jmp     @cont+$1000
  @cont:
-    lda     #$DF    ; printnum
+    lda     #printnum_opcode    ; printnum
     sta     invi+$1000
     
     lda     #74

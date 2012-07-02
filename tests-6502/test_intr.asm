@@ -16,6 +16,7 @@ start:	lda		#(intr_handler & $FF)
 		sta		$FFFF
 		lda		#50		; 5 seconds
 		sta		$FE02
+        cli
         lda     #text-$1000
         jsr     print_string
 loop:	lda		0

@@ -2,7 +2,7 @@
 
 			ldx 	#$FF    ; Load stack pointer
 			txs
-			jmp 	start
+			;jmp 	start
 
 
 start:		lda		#(intr_handler & $FF)
@@ -11,6 +11,7 @@ start:		lda		#(intr_handler & $FF)
 			sta		$FFFF
 			lda		#10		; 1 second
 			sta		$FE02
+			cli
 print_time:
 			; Print hours
 			lda		0

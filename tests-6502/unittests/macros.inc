@@ -13,24 +13,28 @@
     printchar
 .endmacro
 
+printflags_opcode = $32
+getnum_opcode = $52
+printnum_opcode = $72
+getchar_opcode = $92
+printchar_opcode = $B2
+endprog_opcode = $D2
 
 .macro printflags character
-  .byte $BF
+  .byte printflags_opcode
 .endmacro
 .macro getnum character
-  .byte $CF
+  .byte getnum_opcode
 .endmacro
 .macro printnum character
-  .byte $DF
+  .byte printnum_opcode
 .endmacro
 .macro getchar character
-  .byte $EF
+  .byte getchar_opcode
 .endmacro
 .macro printchar character
-  .byte $FF
+  .byte printchar_opcode
 .endmacro
-
-endprog_opcode = $0F
 .macro endprog
   .byte endprog_opcode
 .endmacro
