@@ -61,3 +61,9 @@ asm_test unittests/addr_quirks
 # Undocumented instructions tests
 asm_test unittests/undocumented/nop_test
 asm_test unittests/undocumented/lax_sax_test
+asm_test unittests/undocumented/sbc_undoc_test
+asm_test unittests/undocumented/anc_test
+asm_test unittests/undocumented/asr_test
+asm_test unittests/undocumented/sbx_test
+asm_test unittests/undocumented/las_test
+
